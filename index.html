@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+body {
+    font-family: "Lato", sans-serif;
+    background-color:lightgray ;
+}
+
+.sidenav {
+  height: 100%;
+  width: 20%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+/* Style the buttons inside the tab */
+.sidenav button {
+  background-color: #111;
+  color: white;
+  padding: 22px 16px;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 27px;
+}
+
+
+.sidenav button:hover {
+  background-color: #ddd;
+}
+
+/* Style the tab content */
+.content {
+    padding-left: 25%;
+    width: 70%;
+    border-left: none;
+    height: 100%;
+}
+</style>
+</head>
+<body>
+
+
+<div class="sidenav">
+  <button class="button" onclick="openMenu(event, 'course')" id="defaultOpen">Course</button>
+  <button class="button" onclick="openMenu(event, 'browser')">Browser</button>
+  <button class="button" onclick="openMenu(event, 'about')">About</button>
+</div>
+
+<div id="course" class="content">
+    <h1>Course Links:</h1>
+    <p><a href="https://gaia.cs.umass.edu/kurose_ross/eighth.php"> Kurose and Ross </a>    </p>
+    <p><a href="http://w3schools.com"> W3 Schools </a></p>
+    <p><a href="https://www.geeksforgeeks.org/web-development/"> Geeks of Geeks </a></p>
+</div>
+
+<div id="browser" class="content">
+    <h1>Browser Information:</h1>
+    <h3>Navigator:</h3>
+    <p id="nav_info"> </p>
+    <h3>Window:</h3>
+    <p id="window_info"></p>
+    <h3>Screen:</h3>
+    <p id="screen_info"></p>
+    <h3>Site Location:</h3>
+    <p id="loc_info"></p>
+    <h3>Geolocation:</h3>
+    <p id="geo_info"></p>
+</div>
+
+<div id="about" class="content">
+    <h1>About Me:</h1>
+     <h3>Siliang Chen</h3>
+    <p>Computer science major, and graphic design minor.  </p>
+    <h3>Siliang.Chen21@qmail.cuny.edu:</h3>
+
+<form action="mailto:Siliang.Chen21@qmail.cuny.edu" method="post" enctype="text/plain">
+Name:<br>
+<input type="text" name="name"><br>
+E-mail:<br>
+<input type="text" name="mail"><br>
+Comment:<br>
+<input type="text" name="comment" size="50"><br><br>
+<input type="submit" value="Send">
+<input type="reset" value="Reset">
+</form>
+</div>
+
+<script>
+function openMenu(evt, tab) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("content");
+    if(tab ==='browser'){
+        getNavigatorInfo();
+        getWindowInfo();
+        getScreenInfo();
+        getLocation();
+        getGeoLocation();
+    }
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("button");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(tab).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+document.getElementById("defaultOpen").click();
+
+function getNavigatorInfo(){
+    document.getElementById("nav_info").innerHTML =
+        "Name: " + navigator.appName + "<br> Product: " + navigator.product +
+        "<br> Version: " + navigator.appVersion + "<br> User Agent: " + navigator.userAgent +
+        "<br> Platform: " + navigator.platform + "<br> Language: " + navigator.language
+}
+function  getWindowInfo(){
+    document.getElementById("window_info").innerHTML =
+    "Browser inner window width: " + window.innerWidth + "px<br>" +
+    "Browser inner window height: " + window.innerHeight + "px";
+}
+function  getScreenInfo(){
+    document.getElementById("screen_info").innerHTML =
+    "Screen Width: " +screen.width +
+    "<br>Screen Height: " + screen.height +
+    "<br>Available screen Width: " + screen.availWidth +
+    "<br>Available Screen Height: " + screen.availHeight +
+    "<br>Color Depth: " + screen.colorDepth +
+    "<br>Pixel Depth: " + screen.pixelDepth
+}
+function  getLocation(){
+    document.getElementById("loc_info").innerHTML =
+    "Href: " + window.location.href +
+    "<br>Host Name: " + window.location.hostname +
+    "<br>Path name: " + window.location.pathname +
+    "<br>Protocol: "  + window.location.protocol
+}
+function getGeoLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    document.getElementById("geo_info").innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  document.getElementById("geo_info").innerHTML = "Latitude: " + position.coords.latitude +
+  "<br>Longitude: " + position.coords.longitude;
+}
+
+</script>
+</body>
+</html>
